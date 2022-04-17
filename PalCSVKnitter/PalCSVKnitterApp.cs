@@ -2,11 +2,16 @@ namespace PalCSVKnitter
 {
     public partial class PalCSVKnitterApp : Form
     {
+        private bool freezeTab = true;
+
         public PalCSVKnitterApp()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// The user selected a folder to open. This populates the listbox with the CSV data.
+        /// </summary>
         private void btOpenFolder_Click(object sender, EventArgs e)
         {
             try
@@ -40,10 +45,11 @@ namespace PalCSVKnitter
                         // TODO: read config
 
                         // 4) Add all to the listbox.
-                        foreach (PalCSVFile palCSV in palCSVs)
+                        for (int i = 0; i < palCSVs.Count; i++)
                         {
-                            lbConfiguration.Items.Add(palCSV);
-                            lbConfiguration.Items.Add(" - dt: 1");
+                            lbConfiguration.Items.Add(palCSVs[i]);
+                            if (i < palCSVs.Count - 1)
+                                lbConfiguration.Items.Add(new CSVKnitConfiguration(palCSVs[i].last.GetDateTime()));
                         }
 
                     }
@@ -55,9 +61,55 @@ namespace PalCSVKnitter
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong :(. We're both sad this hapened!\nTech talk: " + 
+                MessageBox.Show("Something went wrong :(. We're both sad this hapened!\nTech talk: " +
                                 ex.Message + "\n\nTech details: \n" + ex.StackTrace);
             }
+        }
+
+        /// <summary>
+        /// The user clicked a line in the listbox. Either a PalCSVLine or a CSVKnitConfiguration.
+        /// </summary>
+        private void lbConfiguration_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            object obj = lbConfiguration.SelectedItem;
+            if (obj != null)
+            {
+                if (obj is PalCSVFile)
+                {
+                    PopulateDetailTab((PalCSVFile)obj);
+                    freezeTab = false;
+                    tabControlDetailEdit.SelectTab(tabDetails);
+                }
+                else if (obj is CSVKnitConfiguration)
+                {
+                    freezeTab = false;
+                    tabControlDetailEdit.SelectTab(tabEdit);
+                }
+            }
+        }
+
+        private void PopulateDetailTab(PalCSVFile palCSVFile)
+        {
+            string activitiesSeen = "";
+            labelFileNameValue.Text = palCSVFile.filename;
+            labelLineCountValue.Text = $"{palCSVFile.lines.Count + 1}";
+            labelFirstValue.Text = palCSVFile.first.GetDateTime().ToString("yyyy-MM-dd ddd @ HH:mm");
+            labelLastValue.Text = palCSVFile.last.GetDateTime().ToString("yyyy-MM-dd ddd @ HH:mm");
+            labelDataCountValue.Text = $"First: {palCSVFile.first.DataCount}\nLast: {palCSVFile.last.DataCount}";
+            foreach (char c in palCSVFile.activitySeen.ToList())
+                activitiesSeen += $"{c}, ";
+            labelActivitiesValue.Text = activitiesSeen.Substring(0, activitiesSeen.Length - 2);
+            labelStepCountValue.Text = $"First: {palCSVFile.first.CumulativeStepCount}\nLast: {palCSVFile.last.CumulativeStepCount}";
+        }
+
+        /// <summary>
+        /// Prevents the tab from changing.
+        /// Found: https://stackoverflow.com/questions/40630281/disable-switching-between-tabs-by-click-or-keys-in-tabcontrol
+        /// </summary>
+        private void tabControlDetailEdit_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            e.Cancel = freezeTab;
+            freezeTab = true;
         }
     }
 }

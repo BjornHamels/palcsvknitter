@@ -43,9 +43,24 @@
             this.groupBoxRechtsSelectedItem = new System.Windows.Forms.GroupBox();
             this.tabControlDetailEdit = new System.Windows.Forms.TabControl();
             this.tabDetails = new System.Windows.Forms.TabPage();
+            this.tableLayoutDetailTab = new System.Windows.Forms.TableLayoutPanel();
+            this.labelFileName = new System.Windows.Forms.Label();
+            this.labelFileNameValue = new System.Windows.Forms.Label();
+            this.labelFirst = new System.Windows.Forms.Label();
+            this.labelFirstValue = new System.Windows.Forms.Label();
+            this.labelLast = new System.Windows.Forms.Label();
+            this.labelLastValue = new System.Windows.Forms.Label();
+            this.labelDataCount = new System.Windows.Forms.Label();
+            this.labelDataCountValue = new System.Windows.Forms.Label();
+            this.labelActivitiesValue = new System.Windows.Forms.Label();
+            this.labelActivities = new System.Windows.Forms.Label();
+            this.labelStepCount = new System.Windows.Forms.Label();
+            this.labelStepCountValue = new System.Windows.Forms.Label();
             this.tabEdit = new System.Windows.Forms.TabPage();
             this.tableLayoutRechtsOnder = new System.Windows.Forms.TableLayoutPanel();
             this.btKnit = new System.Windows.Forms.Button();
+            this.labelLineCount = new System.Windows.Forms.Label();
+            this.labelLineCountValue = new System.Windows.Forms.Label();
             this.tableLayoutMain.SuspendLayout();
             this.groupBoxLinksConfiguration.SuspendLayout();
             this.tableLayoutLinksInGB.SuspendLayout();
@@ -54,6 +69,8 @@
             this.tableLayoutRechts.SuspendLayout();
             this.groupBoxRechtsSelectedItem.SuspendLayout();
             this.tabControlDetailEdit.SuspendLayout();
+            this.tabDetails.SuspendLayout();
+            this.tableLayoutDetailTab.SuspendLayout();
             this.tableLayoutRechtsOnder.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -154,6 +171,7 @@
             this.lbConfiguration.Name = "lbConfiguration";
             this.lbConfiguration.Size = new System.Drawing.Size(915, 709);
             this.lbConfiguration.TabIndex = 2;
+            this.lbConfiguration.SelectedIndexChanged += new System.EventHandler(this.lbConfiguration_SelectedIndexChanged);
             // 
             // tableLayoutLinksOnder
             // 
@@ -242,9 +260,11 @@
             this.tabControlDetailEdit.SelectedIndex = 0;
             this.tabControlDetailEdit.Size = new System.Drawing.Size(605, 788);
             this.tabControlDetailEdit.TabIndex = 0;
+            this.tabControlDetailEdit.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControlDetailEdit_Selecting);
             // 
             // tabDetails
             // 
+            this.tabDetails.Controls.Add(this.tableLayoutDetailTab);
             this.tabDetails.Location = new System.Drawing.Point(8, 46);
             this.tabDetails.Name = "tabDetails";
             this.tabDetails.Padding = new System.Windows.Forms.Padding(3);
@@ -253,12 +273,150 @@
             this.tabDetails.Text = "Details";
             this.tabDetails.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutDetailTab
+            // 
+            this.tableLayoutDetailTab.AutoSize = true;
+            this.tableLayoutDetailTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutDetailTab.ColumnCount = 2;
+            this.tableLayoutDetailTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutDetailTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutDetailTab.Controls.Add(this.labelFileName, 0, 0);
+            this.tableLayoutDetailTab.Controls.Add(this.labelFileNameValue, 1, 0);
+            this.tableLayoutDetailTab.Controls.Add(this.labelFirst, 0, 3);
+            this.tableLayoutDetailTab.Controls.Add(this.labelFirstValue, 1, 3);
+            this.tableLayoutDetailTab.Controls.Add(this.labelLast, 0, 4);
+            this.tableLayoutDetailTab.Controls.Add(this.labelLastValue, 1, 4);
+            this.tableLayoutDetailTab.Controls.Add(this.labelDataCount, 0, 5);
+            this.tableLayoutDetailTab.Controls.Add(this.labelDataCountValue, 1, 5);
+            this.tableLayoutDetailTab.Controls.Add(this.labelActivitiesValue, 1, 6);
+            this.tableLayoutDetailTab.Controls.Add(this.labelActivities, 0, 6);
+            this.tableLayoutDetailTab.Controls.Add(this.labelStepCount, 0, 7);
+            this.tableLayoutDetailTab.Controls.Add(this.labelStepCountValue, 1, 7);
+            this.tableLayoutDetailTab.Controls.Add(this.labelLineCount, 0, 1);
+            this.tableLayoutDetailTab.Controls.Add(this.labelLineCountValue, 1, 1);
+            this.tableLayoutDetailTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutDetailTab.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutDetailTab.Name = "tableLayoutDetailTab";
+            this.tableLayoutDetailTab.RowCount = 8;
+            this.tableLayoutDetailTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutDetailTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutDetailTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutDetailTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutDetailTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutDetailTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutDetailTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutDetailTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutDetailTab.Size = new System.Drawing.Size(583, 728);
+            this.tableLayoutDetailTab.TabIndex = 0;
+            // 
+            // labelFileName
+            // 
+            this.labelFileName.AutoSize = true;
+            this.labelFileName.Location = new System.Drawing.Point(3, 0);
+            this.labelFileName.Name = "labelFileName";
+            this.labelFileName.Size = new System.Drawing.Size(51, 32);
+            this.labelFileName.TabIndex = 0;
+            this.labelFileName.Text = "File";
+            // 
+            // labelFileNameValue
+            // 
+            this.labelFileNameValue.AutoSize = true;
+            this.labelFileNameValue.Location = new System.Drawing.Point(177, 0);
+            this.labelFileNameValue.Name = "labelFileNameValue";
+            this.labelFileNameValue.Size = new System.Drawing.Size(0, 32);
+            this.labelFileNameValue.TabIndex = 1;
+            // 
+            // labelFirst
+            // 
+            this.labelFirst.AutoSize = true;
+            this.labelFirst.Location = new System.Drawing.Point(3, 64);
+            this.labelFirst.Name = "labelFirst";
+            this.labelFirst.Size = new System.Drawing.Size(58, 32);
+            this.labelFirst.TabIndex = 2;
+            this.labelFirst.Text = "First";
+            // 
+            // labelFirstValue
+            // 
+            this.labelFirstValue.AutoSize = true;
+            this.labelFirstValue.Location = new System.Drawing.Point(177, 64);
+            this.labelFirstValue.Name = "labelFirstValue";
+            this.labelFirstValue.Size = new System.Drawing.Size(0, 32);
+            this.labelFirstValue.TabIndex = 3;
+            // 
+            // labelLast
+            // 
+            this.labelLast.AutoSize = true;
+            this.labelLast.Location = new System.Drawing.Point(3, 96);
+            this.labelLast.Name = "labelLast";
+            this.labelLast.Size = new System.Drawing.Size(55, 32);
+            this.labelLast.TabIndex = 4;
+            this.labelLast.Text = "Last";
+            // 
+            // labelLastValue
+            // 
+            this.labelLastValue.AutoSize = true;
+            this.labelLastValue.Location = new System.Drawing.Point(177, 96);
+            this.labelLastValue.Name = "labelLastValue";
+            this.labelLastValue.Size = new System.Drawing.Size(0, 32);
+            this.labelLastValue.TabIndex = 5;
+            // 
+            // labelDataCount
+            // 
+            this.labelDataCount.AutoSize = true;
+            this.labelDataCount.Location = new System.Drawing.Point(3, 128);
+            this.labelDataCount.Name = "labelDataCount";
+            this.labelDataCount.Size = new System.Drawing.Size(135, 32);
+            this.labelDataCount.TabIndex = 6;
+            this.labelDataCount.Text = "Data Count";
+            // 
+            // labelDataCountValue
+            // 
+            this.labelDataCountValue.AutoSize = true;
+            this.labelDataCountValue.Location = new System.Drawing.Point(177, 128);
+            this.labelDataCountValue.Name = "labelDataCountValue";
+            this.labelDataCountValue.Size = new System.Drawing.Size(0, 32);
+            this.labelDataCountValue.TabIndex = 7;
+            // 
+            // labelActivitiesValue
+            // 
+            this.labelActivitiesValue.AutoSize = true;
+            this.labelActivitiesValue.Location = new System.Drawing.Point(177, 160);
+            this.labelActivitiesValue.Name = "labelActivitiesValue";
+            this.labelActivitiesValue.Size = new System.Drawing.Size(0, 32);
+            this.labelActivitiesValue.TabIndex = 8;
+            // 
+            // labelActivities
+            // 
+            this.labelActivities.AutoSize = true;
+            this.labelActivities.Location = new System.Drawing.Point(3, 160);
+            this.labelActivities.Name = "labelActivities";
+            this.labelActivities.Size = new System.Drawing.Size(109, 32);
+            this.labelActivities.TabIndex = 9;
+            this.labelActivities.Text = "Activities";
+            // 
+            // labelStepCount
+            // 
+            this.labelStepCount.AutoSize = true;
+            this.labelStepCount.Location = new System.Drawing.Point(3, 192);
+            this.labelStepCount.Name = "labelStepCount";
+            this.labelStepCount.Size = new System.Drawing.Size(133, 32);
+            this.labelStepCount.TabIndex = 10;
+            this.labelStepCount.Text = "Step Count";
+            // 
+            // labelStepCountValue
+            // 
+            this.labelStepCountValue.AutoSize = true;
+            this.labelStepCountValue.Location = new System.Drawing.Point(177, 192);
+            this.labelStepCountValue.Name = "labelStepCountValue";
+            this.labelStepCountValue.Size = new System.Drawing.Size(0, 32);
+            this.labelStepCountValue.TabIndex = 11;
+            // 
             // tabEdit
             // 
             this.tabEdit.Location = new System.Drawing.Point(8, 46);
             this.tabEdit.Name = "tabEdit";
             this.tabEdit.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEdit.Size = new System.Drawing.Size(464, 734);
+            this.tabEdit.Size = new System.Drawing.Size(589, 734);
             this.tabEdit.TabIndex = 1;
             this.tabEdit.Text = "Edit";
             this.tabEdit.UseVisualStyleBackColor = true;
@@ -289,6 +447,23 @@
             this.btKnit.Text = "Knit!";
             this.btKnit.UseVisualStyleBackColor = true;
             // 
+            // labelLineCount
+            // 
+            this.labelLineCount.AutoSize = true;
+            this.labelLineCount.Location = new System.Drawing.Point(3, 32);
+            this.labelLineCount.Name = "labelLineCount";
+            this.labelLineCount.Size = new System.Drawing.Size(130, 32);
+            this.labelLineCount.TabIndex = 12;
+            this.labelLineCount.Text = "Line Count";
+            // 
+            // labelLineCountValue
+            // 
+            this.labelLineCountValue.AutoSize = true;
+            this.labelLineCountValue.Location = new System.Drawing.Point(177, 32);
+            this.labelLineCountValue.Name = "labelLineCountValue";
+            this.labelLineCountValue.Size = new System.Drawing.Size(0, 32);
+            this.labelLineCountValue.TabIndex = 13;
+            // 
             // PalCSVKnitterApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
@@ -307,6 +482,10 @@
             this.tableLayoutRechts.ResumeLayout(false);
             this.groupBoxRechtsSelectedItem.ResumeLayout(false);
             this.tabControlDetailEdit.ResumeLayout(false);
+            this.tabDetails.ResumeLayout(false);
+            this.tabDetails.PerformLayout();
+            this.tableLayoutDetailTab.ResumeLayout(false);
+            this.tableLayoutDetailTab.PerformLayout();
             this.tableLayoutRechtsOnder.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -332,5 +511,20 @@
         private CheckBox checkBox1;
         private CheckBox checkBox2;
         private Label labelTip;
+        private TableLayoutPanel tableLayoutDetailTab;
+        private Label labelFileName;
+        private Label labelFileNameValue;
+        private Label labelFirst;
+        private Label labelFirstValue;
+        private Label labelLast;
+        private Label labelLastValue;
+        private Label labelDataCount;
+        private Label labelDataCountValue;
+        private Label labelActivitiesValue;
+        private Label labelActivities;
+        private Label labelStepCount;
+        private Label labelStepCountValue;
+        private Label labelLineCount;
+        private Label labelLineCountValue;
     }
 }

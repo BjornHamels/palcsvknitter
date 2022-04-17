@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PalCSVKnitter
 {
+    /// <summary>
+    /// Structure containing 1 line of Pal CSV data.
+    /// </summary>
     internal struct PalCSVLine
     {
         // https://kb.palt.com/articles/events-csv/

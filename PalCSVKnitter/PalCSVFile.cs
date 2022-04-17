@@ -7,19 +7,30 @@ using System.Threading.Tasks;
 
 namespace PalCSVKnitter
 {
+    /// <summary>
+    /// Represents a Pal CSV File with data lines.
+    /// </summary>
     internal class PalCSVFile : IComparable<PalCSVFile>
     {
-        private readonly string filename;
-        private List<PalCSVLine> lines = new();
-        private DateTime first;
-        private DateTime last;
+        public readonly string filename;
+        public readonly List<PalCSVLine> lines = new();
+        public readonly HashSet<char> activitySeen = new();
+        public PalCSVLine first { get; private set; }
+        public PalCSVLine last { get; private set; }
 
+        /// <summary>
+        /// Represents a Pal CSV File with data lines.
+        /// </summary>
+        /// <param name="filename">Path plus filename of the CSV file that is loaded in memory.</param>
         public PalCSVFile(string filename)
         {
             this.filename = filename;
             LoadFileToLines();
         }
 
+        /// <summary>
+        /// Does the workload of loading the file into the list of structs.
+        /// </summary>
         private void LoadFileToLines()
         {
             // Load all lines in the struct list.
@@ -39,34 +50,38 @@ namespace PalCSVKnitter
                     int sumAbsDiffY = Convert.ToInt32(col[7]);
                     int sumAbsDiffZ = Convert.ToInt32(col[8]);
 
+                    activitySeen.Add(activityCode.ToString()[0]);
                     lines.Add(new PalCSVLine(time, dataCount, interval, activityCode,
                                              cumulativeStepCount, activityScore,
                                              sumAbsDiffX, sumAbsDiffY, sumAbsDiffZ));
                 }
             }
 
-            // Populate first and last DateTime.
-            string firstString = fileLines[1];
-            string lastString = fileLines[fileLines.Length - 1];
-            string[] firstCol = firstString.Split(',');
-            string[] lastCol = lastString.Split(',');
-            first = DateTime.FromOADate(Convert.ToDouble(firstCol[0], CultureInfo.InvariantCulture)); // Decimal seperator = .));
-            last = DateTime.FromOADate(Convert.ToDouble(lastCol[0], CultureInfo.InvariantCulture)); // Decimal seperator = .));
+            // Populate first and last PalCSVLine.
+            first = lines[0];
+            last = lines[lines.Count - 1];
         }
 
+        /// <summary>
+        /// Made for the ListBox.
+        /// </summary>
+        /// <returns>A line summarizing this file.</returns>
         public override string? ToString()
         {
             return $"File {Path.GetFileName(filename)} " +
                    $"{lines.Count + 1} lines. " +
-                   $"Starts at {first.ToString("yyyy-MM-dd")} to {last.ToString("yyyy-MM-dd")} " +
-                   $"{Math.Round((last - first).TotalDays, 1)} days.";
+                   $"Starts at {first.GetDateTime().ToString("yyyy-MM-dd")} to {last.GetDateTime().ToString("yyyy-MM-dd")} " +
+                   $"{Math.Round((last.GetDateTime() - first.GetDateTime()).TotalDays, 1)} days.";
         }
 
+        /// <summary>
+        /// Used for sorting. Sorts by first DateTime seen.
+        /// </summary>
         public int CompareTo(PalCSVFile? other)
         {
             if (other == null)
                 return 0;
-            return this.first.CompareTo(other.first);
+            return this.first.GetDateTime().CompareTo(other.first.GetDateTime());
         }
     }
 }
