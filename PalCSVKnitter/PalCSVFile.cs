@@ -92,5 +92,28 @@ namespace PalCSVKnitter
                 return 0;
             return this.first.GetDateTime().CompareTo(other.first.GetDateTime());
         }
+
+
+        public (List<string>, long, long) ConvertToListString(long startDataCount, long startStepCount,
+                                                              DateTime? stopDT, DateTime? startDT)
+        {
+            List<string> list = new();
+            double stop = (stopDT.HasValue) ? stopDT.Value.ToOADate() : last.Time;
+            double start = (startDT.HasValue) ? startDT.Value.ToOADate() : first.Time;
+            long dataCountMax = 0;
+            long stepCountMax = 0;
+
+            foreach (PalCSVLine line in lines)
+                if ((start <= line.Time) && (line.Time < stop))  // t < stop is deliberate to prevent overlap
+                {
+                    dataCountMax = line.DataCount + startDataCount;
+                    stepCountMax = line.CumulativeStepCount + startStepCount;
+                    list.Add($"{line.Time},{line.DataCount + startDataCount},{line.Interval}," +
+                            $"{line.ActivityCode},{line.CumulativeStepCount + startStepCount}," +
+                            $"{line.ActivityScore},{line.SumAbsDiffX},{line.SumAbsDiffY}," +
+                            $"{line.SumAbsDiffZ}");
+                }
+            return (list, dataCountMax, stepCountMax );
+        }
     }
 }

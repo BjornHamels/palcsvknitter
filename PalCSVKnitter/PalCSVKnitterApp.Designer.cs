@@ -636,12 +636,14 @@
             // 
             this.btKnit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btKnit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btKnit.Enabled = false;
             this.btKnit.Location = new System.Drawing.Point(430, 3);
             this.btKnit.Name = "btKnit";
             this.btKnit.Size = new System.Drawing.Size(178, 135);
             this.btKnit.TabIndex = 2;
             this.btKnit.Text = "Knit!";
             this.btKnit.UseVisualStyleBackColor = true;
+            this.btKnit.Click += new System.EventHandler(this.btKnit_Click);
             // 
             // PalCSVKnitterApp
             // 

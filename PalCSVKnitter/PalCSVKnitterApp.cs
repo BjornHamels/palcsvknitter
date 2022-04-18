@@ -6,6 +6,7 @@ namespace PalCSVKnitter
         private bool freezeEvents = false;
         private string path = "";
         private const string configFileName = @"\_palcsvknitter.config";
+        private const string outputFolder = @"\_palcsvknitter-output";
 
         public PalCSVKnitterApp()
         {
@@ -29,6 +30,7 @@ namespace PalCSVKnitter
                         // All ok. Slected a folder. Save if for saving the config.
                         path = fbd.SelectedPath;
                         btSaveConfig.Enabled = true;
+                        btKnit.Enabled = true;
 
                         // Three steps remain:
                         // 1) clear the content of the listbox.
@@ -85,7 +87,7 @@ namespace PalCSVKnitter
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong :(. We're both sad this hapened!\nTech talk: " +
+                MessageBox.Show("Something went wrong while loading :(. We're both sad this hapened!\nTech talk: " +
                                 ex.Message + "\n\nTech details: \n" + ex.StackTrace);
             }
         }
@@ -272,6 +274,95 @@ namespace PalCSVKnitter
                 }
                 MessageBox.Show($"Saved {configCount} configuration objects and 2 settings.");
             }
+        }
+
+        /// <summary>
+        /// This is where the magic happens. It saves one big CSV file.
+        /// </summary>
+        private void btKnit_Click(object sender, EventArgs e)
+        {
+            bool consecutiveStepCount = cbStepCount.Checked;
+            bool consecutiveDataCount = cbDataCount.Checked;
+            long startDataCount = 0, newDC = 0;
+            long startStepCount = 0, newSC = 0;
+            List<string> output = new List<string>();
+            int count = lbConfiguration.Items.Count;
+            string header = "\"Time\",\"DataCount (samples)\",\"Interval (s)\",\"ActivityCode (0=sedentary, 1=standing, 2=stepping)\",\"CumulativeStepCount\",\"Activity Score (MET.h)\",\"Sum(Abs(DiffX)\",\"Sum(Abs(DiffY)\",\"Sum(Abs(DiffZ)\"";
+            output.Add(header); // Start with the header.
+
+            // A few steps to be done:
+            // 1) Create the output folder.
+            // 2) Loop through the listbox and apply configs.
+            // 3) Save strings to file.
+            // 4) Profit!
+
+            try
+            {
+                // 1) Create output folder.
+                if (!Directory.Exists(path + outputFolder))
+                    Directory.CreateDirectory(path + outputFolder);
+
+                // 2) Run through all files and configurations. Minimum is 3 items.
+                //    a) First do the top 2 items.
+                //    b) Then step size 2 grab sets of: (config, file, config).
+                //    c) Finally, the last 2 items.
+
+                // 2.a) Top 2 items.
+                PalCSVFile firstFile = (PalCSVFile)lbConfiguration.Items[0];
+                CSVKnitConfiguration firstConfig = (CSVKnitConfiguration)lbConfiguration.Items[1];
+                (newDC, newSC) = AppendCSVToList(firstFile, output, startDataCount, startStepCount,
+                                                 stop: firstConfig.stop);
+                if (consecutiveDataCount) startDataCount = newDC;
+                if (consecutiveStepCount) startStepCount = newSC;
+
+                // 2.b) Middle.
+                for (int i = 1; i < count - 3; i += 2)
+                {
+                    CSVKnitConfiguration prevConfig = (CSVKnitConfiguration)lbConfiguration.Items[i + 0];
+                    PalCSVFile file = (PalCSVFile)lbConfiguration.Items[i + 1];
+                    CSVKnitConfiguration nextConfig = (CSVKnitConfiguration)lbConfiguration.Items[i + 2];
+                    (newDC, newSC) = AppendCSVToList(file, output, startDataCount, startStepCount,
+                                                     stop: nextConfig.stop, start: prevConfig.start);
+                    if (consecutiveDataCount) startDataCount = newDC;
+                    if (consecutiveStepCount) startStepCount = newSC;
+                }
+
+                // 2.c) Last 2 items.
+                CSVKnitConfiguration lastConfig = (CSVKnitConfiguration)lbConfiguration.Items[count - 2];
+                PalCSVFile lastFile = (PalCSVFile)lbConfiguration.Items[count - 1];
+                (newDC, newSC) = AppendCSVToList(lastFile, output, startDataCount, startStepCount,
+                                                 start: lastConfig.start);
+                if (consecutiveDataCount) startDataCount = newDC;
+                if (consecutiveStepCount) startStepCount = newSC;
+
+                // 3) Save all to the file.
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong while knitting :(. We're both sad this hapened!\nTech talk: " +
+                                ex.Message + "\n\nTech details: \n" + ex.StackTrace);
+            }
+        }
+
+        /// <summary>
+        /// Adds the content of the file to the List of string.
+        /// </summary>
+        /// <param name="file">The file to read.</param>
+        /// <param name="outList">The list to append to.</param>
+        /// <param name="startDataCount">Value to append to the DataCount column.</param>
+        /// <param name="startStepCount">Value to append to the StepCount column.</param>
+        /// <param name="stop">Optional: when to stop.</param>
+        /// <param name="start">Optional: when to start.</param>
+        /// <returns>Tupil with the new max values.</returns>
+        private (long, long) AppendCSVToList(PalCSVFile file, List<string> outList,
+                                     long startDataCount, long startStepCount,
+                                     DateTime? stop = null, DateTime? start = null)
+        {
+            (List<string> append, long dataCountMax, long stepCountMax) =
+                file.ConvertToListString(startDataCount, startStepCount, stop, start);
+            foreach (string line in append)
+                outList.Add(line);
+            return (dataCountMax, stepCountMax);
         }
     }
 }
