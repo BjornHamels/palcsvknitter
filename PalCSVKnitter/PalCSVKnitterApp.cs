@@ -3,6 +3,7 @@ namespace PalCSVKnitter
     public partial class PalCSVKnitterApp : Form
     {
         private bool freezeTab = true;
+        private bool freezeEvents = false;
 
         public PalCSVKnitterApp()
         {
@@ -71,21 +72,40 @@ namespace PalCSVKnitter
         /// </summary>
         private void lbConfiguration_SelectedIndexChanged(object sender, EventArgs e)
         {
-            object obj = lbConfiguration.SelectedItem;
-            if (obj != null)
+            if (!freezeEvents)
             {
-                if (obj is PalCSVFile)
+                object obj = lbConfiguration.SelectedItem;
+                if (obj != null)
                 {
-                    PopulateDetailTab((PalCSVFile)obj);
-                    freezeTab = false;
-                    tabControlDetailEdit.SelectTab(tabDetails);
-                }
-                else if (obj is CSVKnitConfiguration)
-                {
-                    freezeTab = false;
-                    tabControlDetailEdit.SelectTab(tabEdit);
+                    if (obj is PalCSVFile)
+                    {
+                        PopulateDetailTab((PalCSVFile)obj);
+                        freezeTab = false;
+                        tabControlDetailEdit.SelectTab(tabDetails);
+                    }
+                    else if (obj is CSVKnitConfiguration)
+                    {
+                        PopulateDetailTab((CSVKnitConfiguration)obj);
+                        freezeTab = false;
+                        tabControlDetailEdit.SelectTab(tabEdit);
+                    }
                 }
             }
+        }
+
+        /// <summary>
+        /// Populates the labels with knit configuration details.
+        /// </summary>
+        /// <param name="cSVKnitConfiguration">The selected configuration line to give details on.</param>
+        private void PopulateDetailTab(CSVKnitConfiguration cSVKnitConfiguration)
+        {
+            if (cSVKnitConfiguration.GetMode() == "Gap")
+                rbModeGap.Select();
+            else
+                rbModeConcat.Select();
+            dateTimePickerStop.Value = cSVKnitConfiguration.stop;
+            dateTimePickerStart.Value = cSVKnitConfiguration.start;
+            labelGapDurationValue.Text = cSVKnitConfiguration.GetGapMinutes().ToString() + " minutes";
         }
 
         /// <summary>
@@ -114,6 +134,65 @@ namespace PalCSVKnitter
         {
             e.Cancel = freezeTab;
             freezeTab = true;
+        }
+
+        /// <summary>
+        /// Save the new stop date in the selected config.
+        /// </summary>
+        private void dateTimePickerStop_ValueChanged(object sender, EventArgs e)
+        {
+            CSVKnitConfiguration config = (CSVKnitConfiguration)lbConfiguration.SelectedItem;
+            config.stop = dateTimePickerStop.Value;
+            if (rbModeConcat.Checked)
+                config.start = dateTimePickerStop.Value;
+            labelGapDurationValue.Text = config.GetGapMinutes().ToString() + " minutes";
+            UpdateSelectedToString();
+        }
+
+        /// <summary>
+        /// Save the new start date in the selected config.
+        /// </summary>
+        private void dateTimePickerStart_ValueChanged(object sender, EventArgs e)
+        {
+            CSVKnitConfiguration config = (CSVKnitConfiguration)lbConfiguration.SelectedItem;
+            config.start = dateTimePickerStart.Value;
+            labelGapDurationValue.Text = config.GetGapMinutes().ToString() + " minutes";
+            UpdateSelectedToString();
+        }
+
+        /// <summary>
+        /// Enables / disables UI for Gap and configures selected config object.
+        /// </summary>
+        private void rbMode_CheckedChanged(object sender, EventArgs e)
+        {
+            CSVKnitConfiguration config = (CSVKnitConfiguration)lbConfiguration.SelectedItem;
+            RadioButton radio = (RadioButton)sender;
+            if (radio.Checked)
+            {
+                if (radio.Text == "Gap")
+                {
+                    groupBoxStart.Visible = true;
+                    groupBoxStop.Text = "Stop";
+                }
+                else
+                {
+                    groupBoxStart.Visible = false;
+                    groupBoxStop.Text = "Stop/start";
+                    config.start = config.stop;
+                }
+                UpdateSelectedToString();
+            }
+        }
+
+        /// <summary>
+        /// A ListBox caches the toString. This triggers the current item to be re-evaluated.
+        /// </summary>
+        private void UpdateSelectedToString()
+        {
+            freezeEvents = true;
+            int i = lbConfiguration.SelectedIndex;
+            lbConfiguration.Items[i] = lbConfiguration.Items[i];
+            freezeEvents = false;
         }
     }
 }

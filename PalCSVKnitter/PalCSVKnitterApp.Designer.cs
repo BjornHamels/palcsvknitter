@@ -37,8 +37,8 @@
             this.lbConfiguration = new System.Windows.Forms.ListBox();
             this.tableLayoutLinksOnder = new System.Windows.Forms.TableLayoutPanel();
             this.labelTip = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.cbDataCount = new System.Windows.Forms.CheckBox();
+            this.cbStepCount = new System.Windows.Forms.CheckBox();
             this.tableLayoutRechts = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxRechtsSelectedItem = new System.Windows.Forms.GroupBox();
             this.tabControlDetailEdit = new System.Windows.Forms.TabControl();
@@ -59,6 +59,18 @@
             this.labelLineCount = new System.Windows.Forms.Label();
             this.labelLineCountValue = new System.Windows.Forms.Label();
             this.tabEdit = new System.Windows.Forms.TabPage();
+            this.tableLayoutEditTab = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBoxMode = new System.Windows.Forms.GroupBox();
+            this.tableLayoutEditMode = new System.Windows.Forms.TableLayoutPanel();
+            this.rbModeGap = new System.Windows.Forms.RadioButton();
+            this.rbModeConcat = new System.Windows.Forms.RadioButton();
+            this.groupBoxStop = new System.Windows.Forms.GroupBox();
+            this.dateTimePickerStop = new System.Windows.Forms.DateTimePicker();
+            this.groupBoxStart = new System.Windows.Forms.GroupBox();
+            this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelGapDuration = new System.Windows.Forms.Label();
+            this.labelGapDurationValue = new System.Windows.Forms.Label();
             this.tableLayoutRechtsOnder = new System.Windows.Forms.TableLayoutPanel();
             this.btKnit = new System.Windows.Forms.Button();
             this.tableLayoutMain.SuspendLayout();
@@ -71,6 +83,13 @@
             this.tabControlDetailEdit.SuspendLayout();
             this.tabDetails.SuspendLayout();
             this.tableLayoutDetailTab.SuspendLayout();
+            this.tabEdit.SuspendLayout();
+            this.tableLayoutEditTab.SuspendLayout();
+            this.groupBoxMode.SuspendLayout();
+            this.tableLayoutEditMode.SuspendLayout();
+            this.groupBoxStop.SuspendLayout();
+            this.groupBoxStart.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutRechtsOnder.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -179,8 +198,8 @@
             this.tableLayoutLinksOnder.ColumnCount = 1;
             this.tableLayoutLinksOnder.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutLinksOnder.Controls.Add(this.labelTip, 0, 2);
-            this.tableLayoutLinksOnder.Controls.Add(this.checkBox1, 0, 0);
-            this.tableLayoutLinksOnder.Controls.Add(this.checkBox2, 0, 1);
+            this.tableLayoutLinksOnder.Controls.Add(this.cbDataCount, 0, 0);
+            this.tableLayoutLinksOnder.Controls.Add(this.cbStepCount, 0, 1);
             this.tableLayoutLinksOnder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutLinksOnder.Location = new System.Drawing.Point(3, 783);
             this.tableLayoutLinksOnder.Name = "tableLayoutLinksOnder";
@@ -202,25 +221,25 @@
             this.labelTip.Text = "Tip: save your configuration so that it will be automatically\r\nloaded next time y" +
     "ou open this folder.\r\n";
             // 
-            // checkBox1
+            // cbDataCount
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(3, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(488, 36);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Consecutive Numbering for \"Data Count\"";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbDataCount.AutoSize = true;
+            this.cbDataCount.Location = new System.Drawing.Point(3, 3);
+            this.cbDataCount.Name = "cbDataCount";
+            this.cbDataCount.Size = new System.Drawing.Size(488, 36);
+            this.cbDataCount.TabIndex = 0;
+            this.cbDataCount.Text = "Consecutive Numbering for \"Data Count\"";
+            this.cbDataCount.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // cbStepCount
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(3, 45);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(614, 36);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Consecutive Numbering for \"Cumulative Step Count\"";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.cbStepCount.AutoSize = true;
+            this.cbStepCount.Location = new System.Drawing.Point(3, 45);
+            this.cbStepCount.Name = "cbStepCount";
+            this.cbStepCount.Size = new System.Drawing.Size(614, 36);
+            this.cbStepCount.TabIndex = 1;
+            this.cbStepCount.Text = "Consecutive Numbering for \"Cumulative Step Count\"";
+            this.cbStepCount.UseVisualStyleBackColor = true;
             // 
             // tableLayoutRechts
             // 
@@ -430,6 +449,7 @@
             // 
             // tabEdit
             // 
+            this.tabEdit.Controls.Add(this.tableLayoutEditTab);
             this.tabEdit.Location = new System.Drawing.Point(8, 46);
             this.tabEdit.Name = "tabEdit";
             this.tabEdit.Padding = new System.Windows.Forms.Padding(3);
@@ -437,6 +457,163 @@
             this.tabEdit.TabIndex = 1;
             this.tabEdit.Text = "Edit";
             this.tabEdit.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutEditTab
+            // 
+            this.tableLayoutEditTab.AutoSize = true;
+            this.tableLayoutEditTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutEditTab.ColumnCount = 1;
+            this.tableLayoutEditTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutEditTab.Controls.Add(this.groupBoxMode, 0, 0);
+            this.tableLayoutEditTab.Controls.Add(this.groupBoxStop, 0, 1);
+            this.tableLayoutEditTab.Controls.Add(this.groupBoxStart, 0, 2);
+            this.tableLayoutEditTab.Controls.Add(this.tableLayoutPanel1, 0, 3);
+            this.tableLayoutEditTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutEditTab.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutEditTab.Name = "tableLayoutEditTab";
+            this.tableLayoutEditTab.RowCount = 4;
+            this.tableLayoutEditTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutEditTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutEditTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutEditTab.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutEditTab.Size = new System.Drawing.Size(583, 728);
+            this.tableLayoutEditTab.TabIndex = 0;
+            // 
+            // groupBoxMode
+            // 
+            this.groupBoxMode.AutoSize = true;
+            this.groupBoxMode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBoxMode.Controls.Add(this.tableLayoutEditMode);
+            this.groupBoxMode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxMode.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxMode.Name = "groupBoxMode";
+            this.groupBoxMode.Size = new System.Drawing.Size(577, 122);
+            this.groupBoxMode.TabIndex = 2;
+            this.groupBoxMode.TabStop = false;
+            this.groupBoxMode.Text = "Set Mode";
+            // 
+            // tableLayoutEditMode
+            // 
+            this.tableLayoutEditMode.AutoSize = true;
+            this.tableLayoutEditMode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutEditMode.ColumnCount = 1;
+            this.tableLayoutEditMode.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutEditMode.Controls.Add(this.rbModeGap, 0, 1);
+            this.tableLayoutEditMode.Controls.Add(this.rbModeConcat, 0, 0);
+            this.tableLayoutEditMode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutEditMode.Location = new System.Drawing.Point(3, 35);
+            this.tableLayoutEditMode.Name = "tableLayoutEditMode";
+            this.tableLayoutEditMode.RowCount = 2;
+            this.tableLayoutEditMode.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutEditMode.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutEditMode.Size = new System.Drawing.Size(571, 84);
+            this.tableLayoutEditMode.TabIndex = 0;
+            // 
+            // rbModeGap
+            // 
+            this.rbModeGap.AutoSize = true;
+            this.rbModeGap.Location = new System.Drawing.Point(3, 45);
+            this.rbModeGap.Name = "rbModeGap";
+            this.rbModeGap.Size = new System.Drawing.Size(87, 36);
+            this.rbModeGap.TabIndex = 0;
+            this.rbModeGap.TabStop = true;
+            this.rbModeGap.Text = "Gap";
+            this.rbModeGap.UseVisualStyleBackColor = true;
+            this.rbModeGap.CheckedChanged += new System.EventHandler(this.rbMode_CheckedChanged);
+            // 
+            // rbModeConcat
+            // 
+            this.rbModeConcat.AutoSize = true;
+            this.rbModeConcat.Location = new System.Drawing.Point(3, 3);
+            this.rbModeConcat.Name = "rbModeConcat";
+            this.rbModeConcat.Size = new System.Drawing.Size(179, 36);
+            this.rbModeConcat.TabIndex = 1;
+            this.rbModeConcat.TabStop = true;
+            this.rbModeConcat.Text = "Concatenate";
+            this.rbModeConcat.UseVisualStyleBackColor = true;
+            this.rbModeConcat.CheckedChanged += new System.EventHandler(this.rbMode_CheckedChanged);
+            // 
+            // groupBoxStop
+            // 
+            this.groupBoxStop.AutoSize = true;
+            this.groupBoxStop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBoxStop.Controls.Add(this.dateTimePickerStop);
+            this.groupBoxStop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxStop.Location = new System.Drawing.Point(3, 131);
+            this.groupBoxStop.Name = "groupBoxStop";
+            this.groupBoxStop.Size = new System.Drawing.Size(577, 77);
+            this.groupBoxStop.TabIndex = 3;
+            this.groupBoxStop.TabStop = false;
+            this.groupBoxStop.Text = "Stop";
+            // 
+            // dateTimePickerStop
+            // 
+            this.dateTimePickerStop.CustomFormat = "dddd yyyy-MM-dd HH:mm";
+            this.dateTimePickerStop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dateTimePickerStop.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerStop.Location = new System.Drawing.Point(3, 35);
+            this.dateTimePickerStop.Name = "dateTimePickerStop";
+            this.dateTimePickerStop.Size = new System.Drawing.Size(571, 39);
+            this.dateTimePickerStop.TabIndex = 0;
+            this.dateTimePickerStop.ValueChanged += new System.EventHandler(this.dateTimePickerStop_ValueChanged);
+            // 
+            // groupBoxStart
+            // 
+            this.groupBoxStart.AutoSize = true;
+            this.groupBoxStart.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBoxStart.Controls.Add(this.dateTimePickerStart);
+            this.groupBoxStart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxStart.Location = new System.Drawing.Point(3, 214);
+            this.groupBoxStart.Name = "groupBoxStart";
+            this.groupBoxStart.Size = new System.Drawing.Size(577, 77);
+            this.groupBoxStart.TabIndex = 4;
+            this.groupBoxStart.TabStop = false;
+            this.groupBoxStart.Text = "Start";
+            // 
+            // dateTimePickerStart
+            // 
+            this.dateTimePickerStart.CustomFormat = "dddd yyyy-MM-dd HH:mm";
+            this.dateTimePickerStart.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dateTimePickerStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePickerStart.Location = new System.Drawing.Point(3, 35);
+            this.dateTimePickerStart.Name = "dateTimePickerStart";
+            this.dateTimePickerStart.Size = new System.Drawing.Size(571, 39);
+            this.dateTimePickerStart.TabIndex = 0;
+            this.dateTimePickerStart.ValueChanged += new System.EventHandler(this.dateTimePickerStart_ValueChanged);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel1.Controls.Add(this.labelGapDuration, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelGapDurationValue, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 297);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(577, 428);
+            this.tableLayoutPanel1.TabIndex = 5;
+            // 
+            // labelGapDuration
+            // 
+            this.labelGapDuration.AutoSize = true;
+            this.labelGapDuration.Location = new System.Drawing.Point(3, 0);
+            this.labelGapDuration.Name = "labelGapDuration";
+            this.labelGapDuration.Size = new System.Drawing.Size(156, 32);
+            this.labelGapDuration.TabIndex = 0;
+            this.labelGapDuration.Text = "Gap Duration";
+            // 
+            // labelGapDurationValue
+            // 
+            this.labelGapDurationValue.AutoSize = true;
+            this.labelGapDurationValue.Location = new System.Drawing.Point(176, 0);
+            this.labelGapDurationValue.Name = "labelGapDurationValue";
+            this.labelGapDurationValue.Size = new System.Drawing.Size(0, 32);
+            this.labelGapDurationValue.TabIndex = 1;
             // 
             // tableLayoutRechtsOnder
             // 
@@ -486,6 +663,18 @@
             this.tabDetails.PerformLayout();
             this.tableLayoutDetailTab.ResumeLayout(false);
             this.tableLayoutDetailTab.PerformLayout();
+            this.tabEdit.ResumeLayout(false);
+            this.tabEdit.PerformLayout();
+            this.tableLayoutEditTab.ResumeLayout(false);
+            this.tableLayoutEditTab.PerformLayout();
+            this.groupBoxMode.ResumeLayout(false);
+            this.groupBoxMode.PerformLayout();
+            this.tableLayoutEditMode.ResumeLayout(false);
+            this.tableLayoutEditMode.PerformLayout();
+            this.groupBoxStop.ResumeLayout(false);
+            this.groupBoxStart.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutRechtsOnder.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -508,8 +697,8 @@
         private TableLayoutPanel tableLayoutRechtsOnder;
         private Button btKnit;
         private TableLayoutPanel tableLayoutLinksOnder;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
+        private CheckBox cbDataCount;
+        private CheckBox cbStepCount;
         private Label labelTip;
         private TableLayoutPanel tableLayoutDetailTab;
         private Label labelFileName;
@@ -526,5 +715,17 @@
         private Label labelStepCountValue;
         private Label labelLineCount;
         private Label labelLineCountValue;
+        private TableLayoutPanel tableLayoutEditTab;
+        private GroupBox groupBoxMode;
+        private TableLayoutPanel tableLayoutEditMode;
+        private RadioButton rbModeGap;
+        private RadioButton rbModeConcat;
+        private GroupBox groupBoxStop;
+        private DateTimePicker dateTimePickerStop;
+        private GroupBox groupBoxStart;
+        private DateTimePicker dateTimePickerStart;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Label labelGapDuration;
+        private Label labelGapDurationValue;
     }
 }
