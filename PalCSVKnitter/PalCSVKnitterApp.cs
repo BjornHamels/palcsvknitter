@@ -4,6 +4,7 @@ namespace PalCSVKnitter
     {
         private bool freezeTab = true;
         private bool freezeEvents = false;
+        private string path = "";
 
         public PalCSVKnitterApp()
         {
@@ -24,7 +25,11 @@ namespace PalCSVKnitter
                     DialogResult result = fbd.ShowDialog();
                     if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
-                        // All ok. Slected a folder. Three steps remain:
+                        // All ok. Slected a folder. Save if for saving the config.
+                        path = fbd.SelectedPath;
+                        btSaveConfig.Enabled = true;
+
+                        // Three steps remain:
                         // 1) clear the content of the listbox.
                         // 2) add all CSV's to a list that is sorted on internal DateTime;
                         // 3) see if there is a saved configfile we can use for the gaps.
@@ -193,6 +198,36 @@ namespace PalCSVKnitter
             int i = lbConfiguration.SelectedIndex;
             lbConfiguration.Items[i] = lbConfiguration.Items[i];
             freezeEvents = false;
+        }
+
+        /// <summary>
+        /// Saves a file with configuration to the same folder containing the configuration objects.
+        /// </summary>
+        private void btSaveConfig_Click(object sender, EventArgs e)
+        {
+            if (lbConfiguration.Items.Count != 0)
+            {
+                using StreamWriter file = new(path + "\\_palcsvknitter.config");
+                file.WriteLine("# https://github.com/BjornHamels/palcsvknitter");
+                file.WriteLine($"{cbDataCount.Checked}|{cbStepCount.Checked}");
+
+                string before = "";
+                int configCount = 0;
+                foreach (object obj in lbConfiguration.Items)
+                {
+
+                    if (obj is PalCSVFile)
+                        before = ((PalCSVFile)obj).GetFileName();
+                    if (obj is CSVKnitConfiguration)
+                    {
+                        CSVKnitConfiguration config = (CSVKnitConfiguration)obj;
+                        file.WriteLine($"{before}|{config.stop}|{config.start}");
+                        before = "";
+                        configCount++;
+                    }
+                }
+                MessageBox.Show($"Saved {configCount} configuration objects and 2 settings.");
+            }
         }
     }
 }

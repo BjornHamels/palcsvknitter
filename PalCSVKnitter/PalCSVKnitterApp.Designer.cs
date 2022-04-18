@@ -174,12 +174,14 @@
             // 
             this.btSaveConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btSaveConfig.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btSaveConfig.Enabled = false;
             this.btSaveConfig.Location = new System.Drawing.Point(460, 3);
             this.btSaveConfig.Name = "btSaveConfig";
             this.btSaveConfig.Size = new System.Drawing.Size(452, 46);
             this.btSaveConfig.TabIndex = 1;
             this.btSaveConfig.Text = "Save Configuration";
             this.btSaveConfig.UseVisualStyleBackColor = true;
+            this.btSaveConfig.Click += new System.EventHandler(this.btSaveConfig_Click);
             // 
             // lbConfiguration
             // 
