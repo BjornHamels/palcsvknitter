@@ -56,11 +56,11 @@
             this.labelActivities = new System.Windows.Forms.Label();
             this.labelStepCount = new System.Windows.Forms.Label();
             this.labelStepCountValue = new System.Windows.Forms.Label();
+            this.labelLineCount = new System.Windows.Forms.Label();
+            this.labelLineCountValue = new System.Windows.Forms.Label();
             this.tabEdit = new System.Windows.Forms.TabPage();
             this.tableLayoutRechtsOnder = new System.Windows.Forms.TableLayoutPanel();
             this.btKnit = new System.Windows.Forms.Button();
-            this.labelLineCount = new System.Windows.Forms.Label();
-            this.labelLineCountValue = new System.Windows.Forms.Label();
             this.tableLayoutMain.SuspendLayout();
             this.groupBoxLinksConfiguration.SuspendLayout();
             this.tableLayoutLinksInGB.SuspendLayout();
@@ -331,9 +331,9 @@
             this.labelFirst.AutoSize = true;
             this.labelFirst.Location = new System.Drawing.Point(3, 64);
             this.labelFirst.Name = "labelFirst";
-            this.labelFirst.Size = new System.Drawing.Size(58, 32);
+            this.labelFirst.Size = new System.Drawing.Size(118, 32);
             this.labelFirst.TabIndex = 2;
-            this.labelFirst.Text = "First";
+            this.labelFirst.Text = "First Time";
             // 
             // labelFirstValue
             // 
@@ -348,9 +348,9 @@
             this.labelLast.AutoSize = true;
             this.labelLast.Location = new System.Drawing.Point(3, 96);
             this.labelLast.Name = "labelLast";
-            this.labelLast.Size = new System.Drawing.Size(55, 32);
+            this.labelLast.Size = new System.Drawing.Size(115, 32);
             this.labelLast.TabIndex = 4;
-            this.labelLast.Text = "Last";
+            this.labelLast.Text = "Last Time";
             // 
             // labelLastValue
             // 
@@ -411,6 +411,23 @@
             this.labelStepCountValue.Size = new System.Drawing.Size(0, 32);
             this.labelStepCountValue.TabIndex = 11;
             // 
+            // labelLineCount
+            // 
+            this.labelLineCount.AutoSize = true;
+            this.labelLineCount.Location = new System.Drawing.Point(3, 32);
+            this.labelLineCount.Name = "labelLineCount";
+            this.labelLineCount.Size = new System.Drawing.Size(130, 32);
+            this.labelLineCount.TabIndex = 12;
+            this.labelLineCount.Text = "Line Count";
+            // 
+            // labelLineCountValue
+            // 
+            this.labelLineCountValue.AutoSize = true;
+            this.labelLineCountValue.Location = new System.Drawing.Point(177, 32);
+            this.labelLineCountValue.Name = "labelLineCountValue";
+            this.labelLineCountValue.Size = new System.Drawing.Size(0, 32);
+            this.labelLineCountValue.TabIndex = 13;
+            // 
             // tabEdit
             // 
             this.tabEdit.Location = new System.Drawing.Point(8, 46);
@@ -446,23 +463,6 @@
             this.btKnit.TabIndex = 2;
             this.btKnit.Text = "Knit!";
             this.btKnit.UseVisualStyleBackColor = true;
-            // 
-            // labelLineCount
-            // 
-            this.labelLineCount.AutoSize = true;
-            this.labelLineCount.Location = new System.Drawing.Point(3, 32);
-            this.labelLineCount.Name = "labelLineCount";
-            this.labelLineCount.Size = new System.Drawing.Size(130, 32);
-            this.labelLineCount.TabIndex = 12;
-            this.labelLineCount.Text = "Line Count";
-            // 
-            // labelLineCountValue
-            // 
-            this.labelLineCountValue.AutoSize = true;
-            this.labelLineCountValue.Location = new System.Drawing.Point(177, 32);
-            this.labelLineCountValue.Name = "labelLineCountValue";
-            this.labelLineCountValue.Size = new System.Drawing.Size(0, 32);
-            this.labelLineCountValue.TabIndex = 13;
             // 
             // PalCSVKnitterApp
             // 

@@ -88,6 +88,10 @@ namespace PalCSVKnitter
             }
         }
 
+        /// <summary>
+        /// Populates the labels with file details.
+        /// </summary>
+        /// <param name="palCSVFile">The selected CSV file to give details on.</param>
         private void PopulateDetailTab(PalCSVFile palCSVFile)
         {
             string activitiesSeen = "";
