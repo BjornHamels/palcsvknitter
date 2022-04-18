@@ -68,10 +68,19 @@ namespace PalCSVKnitter
         /// <returns>A line summarizing this file.</returns>
         public override string? ToString()
         {
-            return $"File {Path.GetFileName(filename)} " +
+            return $"File {GetFileName()} " +
                    $"{lines.Count + 1} lines. " +
                    $"Starts at {first.GetDateTime().ToString("yyyy-MM-dd")} to {last.GetDateTime().ToString("yyyy-MM-dd")} " +
                    $"{Math.Round((last.GetDateTime() - first.GetDateTime()).TotalDays, 1)} days.";
+        }
+
+        /// <summary>
+        /// Returns only the filename.
+        /// </summary>
+        /// <returns>Filename of the CSV.</returns>
+        public string GetFileName()
+        {
+            return Path.GetFileName(filename);
         }
 
         /// <summary>
