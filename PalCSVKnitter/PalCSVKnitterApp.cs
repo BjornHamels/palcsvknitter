@@ -5,6 +5,7 @@ namespace PalCSVKnitter
         private bool freezeTab = true;
         private bool freezeEvents = false;
         private string path = "";
+        private const string configFileName = @"\_palcsvknitter.config";
 
         public PalCSVKnitterApp()
         {
@@ -48,16 +49,33 @@ namespace PalCSVKnitter
                         palCSVs.Sort();
 
                         // 3) Read potential configuration file.
-                        // TODO: read config
+                        Dictionary<string, string> dic = AttemptReadConfig();
+                        cbDataCount.Checked = cbStepCount.Checked = false;
+                        if (dic.Count > 0)
+                        {
+                            MessageBox.Show("Found configuration file, using the stored config.");
+                            if (dic["|DataCount"] == "True") cbDataCount.Checked = true;
+                            if (dic["|StepCount"] == "True") cbStepCount.Checked = true;
+                            dic.Remove("|DataCount");
+                            dic.Remove("|StepCount");
+                        }
 
                         // 4) Add all to the listbox.
                         for (int i = 0; i < palCSVs.Count; i++)
                         {
+                            string name = palCSVs[i].GetFileName();
                             lbConfiguration.Items.Add(palCSVs[i]);
-                            if (i < palCSVs.Count - 1)
-                                lbConfiguration.Items.Add(new CSVKnitConfiguration(palCSVs[i].last.GetDateTime()));
+                            if (i < (palCSVs.Count - 1))
+                            {
+                                if (dic.ContainsKey(name))
+                                {
+                                    string[] data = dic[name].Split("|");
+                                    lbConfiguration.Items.Add(new CSVKnitConfiguration(DateTime.Parse(data[0]), DateTime.Parse(data[1])));
+                                }
+                                else
+                                    lbConfiguration.Items.Add(new CSVKnitConfiguration(palCSVs[i].last.GetDateTime()));
+                            }
                         }
-
                     }
                     else
                     {
@@ -69,6 +87,33 @@ namespace PalCSVKnitter
             {
                 MessageBox.Show("Something went wrong :(. We're both sad this hapened!\nTech talk: " +
                                 ex.Message + "\n\nTech details: \n" + ex.StackTrace);
+            }
+        }
+
+        /// <summary>
+        /// Tries to read the configfile. Stores the filenames and their two dates plus the 2 checkboxes.
+        /// </summary>
+        /// <returns>An empty dictionary if no config is found, else key value pairs.</returns>
+        private Dictionary<string, string> AttemptReadConfig()
+        {
+            try
+            {
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                string[] lines = System.IO.File.ReadAllLines(path + configFileName);
+                string[] checkboxes = lines[1].Split("|");
+                dic.Add("|DataCount", checkboxes[0]);
+                dic.Add("|StepCount", checkboxes[1]);
+                for (int i = 2; i < lines.Length; i++)
+                {
+                    string[] data = lines[i].Split("|", 2);
+                    dic.Add(data[0], data[1]);
+                }
+                return dic;
+            }
+            catch
+            {
+                // Empty dictionary is returned.
+                return new Dictionary<string, string>();
             }
         }
 
@@ -207,7 +252,7 @@ namespace PalCSVKnitter
         {
             if (lbConfiguration.Items.Count != 0)
             {
-                using StreamWriter file = new(path + "\\_palcsvknitter.config");
+                using StreamWriter file = new(path + configFileName);
                 file.WriteLine("# https://github.com/BjornHamels/palcsvknitter");
                 file.WriteLine($"{cbDataCount.Checked}|{cbStepCount.Checked}");
 
