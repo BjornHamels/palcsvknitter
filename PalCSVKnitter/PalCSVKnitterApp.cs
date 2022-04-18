@@ -336,6 +336,9 @@ namespace PalCSVKnitter
                 if (consecutiveStepCount) startStepCount = newSC;
 
                 // 3) Save all to the file.
+                string fileLocation = path + outputFolder + @"\KnittedAt" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv";
+                System.IO.File.WriteAllLines(fileLocation, output);
+                MessageBox.Show($"Saved {output.Count} lines in:\n{fileLocation}");
             }
             catch (Exception ex)
             {
