@@ -15,6 +15,8 @@ namespace PalCSVKnitter
         public readonly string filename;
         public readonly List<PalCSVLine> lines = new();
         public readonly HashSet<char> activitySeen = new();
+        NumberFormatInfo nfiDecimalDot = new NumberFormatInfo();
+
         public PalCSVLine first { get; private set; }
         public PalCSVLine last { get; private set; }
 
@@ -25,6 +27,7 @@ namespace PalCSVKnitter
         public PalCSVFile(string filename)
         {
             this.filename = filename;
+            nfiDecimalDot.NumberDecimalSeparator = ".";
             LoadFileToLines();
         }
 
@@ -40,9 +43,9 @@ namespace PalCSVKnitter
                 string[] col = line.Split(',');
                 if (col[0] != "\"Time\"") // Ignore first line containing the headers.
                 {
-                    double time = Convert.ToDouble(col[0], CultureInfo.InvariantCulture); // Decimal seperator = .
+                    double time = Convert.ToDouble(col[0], nfiDecimalDot); // Decimal seperator = .
                     long dataCount = Convert.ToInt64(col[1]);
-                    double interval = Convert.ToDouble(col[2], CultureInfo.InvariantCulture); // Decimal seperator = .
+                    double interval = Convert.ToDouble(col[2], nfiDecimalDot); // Decimal seperator = .
                     byte activityCode = Convert.ToByte(col[3]);
                     long cumulativeStepCount = Convert.ToInt64(col[4]);
                     decimal activityScore = Convert.ToDecimal(col[5]);
@@ -108,12 +111,12 @@ namespace PalCSVKnitter
                 {
                     dataCountMax = line.DataCount + startDataCount;
                     stepCountMax = line.CumulativeStepCount + startStepCount;
-                    list.Add($"{line.Time},{line.DataCount + startDataCount},{line.Interval}," +
-                            $"{line.ActivityCode},{line.CumulativeStepCount + startStepCount}," +
-                            $"{line.ActivityScore},{line.SumAbsDiffX},{line.SumAbsDiffY}," +
-                            $"{line.SumAbsDiffZ}");
+                    list.Add($"{line.Time.ToString(nfiDecimalDot)},{line.DataCount + startDataCount}," + // Decimal seperator = .
+                             $"{line.Interval.ToString(nfiDecimalDot)},{line.ActivityCode}," + // Decimal seperator = .
+                             $"{line.CumulativeStepCount + startStepCount},{line.ActivityScore}," +
+                             $"{line.SumAbsDiffX},{line.SumAbsDiffY},{line.SumAbsDiffZ}");
                 }
-            return (list, dataCountMax, stepCountMax );
+            return (list, dataCountMax, stepCountMax);
         }
     }
 }
