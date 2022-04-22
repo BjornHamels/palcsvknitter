@@ -48,7 +48,7 @@ namespace PalCSVKnitter
                     double interval = Convert.ToDouble(col[2], nfiDecimalDot); // Decimal seperator = .
                     byte activityCode = Convert.ToByte(col[3]);
                     long cumulativeStepCount = Convert.ToInt64(col[4]);
-                    decimal activityScore = Convert.ToDecimal(col[5]);
+                    decimal activityScore = Convert.ToDecimal(col[5], nfiDecimalDot); // Decimal seperator = .
                     int sumAbsDiffX = Convert.ToInt32(col[6]);
                     int sumAbsDiffY = Convert.ToInt32(col[7]);
                     int sumAbsDiffZ = Convert.ToInt32(col[8]);
@@ -113,7 +113,7 @@ namespace PalCSVKnitter
                     stepCountMax = line.CumulativeStepCount + startStepCount;
                     list.Add($"{line.Time.ToString(nfiDecimalDot)},{line.DataCount + startDataCount}," + // Decimal seperator = .
                              $"{line.Interval.ToString(nfiDecimalDot)},{line.ActivityCode}," + // Decimal seperator = .
-                             $"{line.CumulativeStepCount + startStepCount},{line.ActivityScore}," +
+                             $"{line.CumulativeStepCount + startStepCount},{line.ActivityScore.ToString(nfiDecimalDot)}," +
                              $"{line.SumAbsDiffX},{line.SumAbsDiffY},{line.SumAbsDiffZ}");
                 }
             return (list, dataCountMax, stepCountMax);
