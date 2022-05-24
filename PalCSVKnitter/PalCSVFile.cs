@@ -96,7 +96,15 @@ namespace PalCSVKnitter
             return this.first.GetDateTime().CompareTo(other.first.GetDateTime());
         }
 
-
+        /// <summary>
+        /// Converts the file to a list of strings given de stopDateTime and startDateTime.
+        /// It will (optionally) start at a certain DateTime or Stop at a certain DateTime.
+        /// </summary>
+        /// <param name="startDataCount">Start-value of the data count</param>
+        /// <param name="startStepCount">Start-value of the step count</param>
+        /// <param name="stopDT">Optional stop at DateTime</param>
+        /// <param name="startDT">Optional start at DateTime</param>
+        /// <returns>A tuple containing the list of strings, and the two current stepcounts)</returns>
         public (List<string>, long, long) ConvertToListString(long startDataCount, long startStepCount,
                                                               DateTime? stopDT, DateTime? startDT)
         {
@@ -105,6 +113,11 @@ namespace PalCSVKnitter
             double start = (startDT.HasValue) ? startDT.Value.ToOADate() : first.Time;
             long dataCountMax = 0;
             long stepCountMax = 0;
+
+            // Aint pretty, this triggers at the last file and make sure that
+            // the "t < stop" becomes "t <= stop" for the missing last line.
+            if (startDT.HasValue && !stopDT.HasValue)
+                stop++;
 
             foreach (PalCSVLine line in lines)
                 if ((start <= line.Time) && (line.Time < stop))  // t < stop is deliberate to prevent overlap
