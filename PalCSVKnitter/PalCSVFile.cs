@@ -124,7 +124,7 @@ namespace PalCSVKnitter
                 {
                     dataCountMax = line.DataCount + startDataCount;
                     stepCountMax = line.CumulativeStepCount + startStepCount;
-                    list.Add($"{line.Time.ToString(nfiDecimalDot)},{line.DataCount + startDataCount}," + // Decimal seperator = .
+                    list.Add($"{line.Time.ToString("F10", nfiDecimalDot)},{line.DataCount + startDataCount}," + // Decimal seperator = .
                              $"{line.Interval.ToString(nfiDecimalDot)},{line.ActivityCode}," + // Decimal seperator = .
                              $"{line.CumulativeStepCount + startStepCount},{line.ActivityScore.ToString(nfiDecimalDot)}," +
                              $"{line.SumAbsDiffX},{line.SumAbsDiffY},{line.SumAbsDiffZ}");
