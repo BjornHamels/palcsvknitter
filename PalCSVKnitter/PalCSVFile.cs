@@ -15,7 +15,7 @@ namespace PalCSVKnitter
         public readonly string filename;
         public readonly List<PalCSVLine> lines = new();
         public readonly HashSet<char> activitySeen = new();
-        NumberFormatInfo nfiDecimalDot = new NumberFormatInfo();
+        private NumberFormatInfo nfiDecimalDot = new NumberFormatInfo();
 
         public PalCSVLine first { get; private set; }
         public PalCSVLine last { get; private set; }
@@ -41,7 +41,8 @@ namespace PalCSVKnitter
             foreach (string line in fileLines)
             {
                 string[] col = line.Split(',');
-                if (col[0] != "\"Time\"") // Ignore first line containing the headers.
+                // Ignore first line containing the column headers and the later added **data** and **header** lines.
+                if (col[0] != "\"Time\"" && (col.Count() == 9))
                 {
                     double time = Convert.ToDouble(col[0], nfiDecimalDot); // Decimal seperator = .
                     long dataCount = Convert.ToInt64(col[1]);

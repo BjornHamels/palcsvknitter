@@ -299,8 +299,8 @@
             this.tableLayoutDetailTab.AutoSize = true;
             this.tableLayoutDetailTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutDetailTab.ColumnCount = 2;
-            this.tableLayoutDetailTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutDetailTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutDetailTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38F));
+            this.tableLayoutDetailTab.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62F));
             this.tableLayoutDetailTab.Controls.Add(this.labelFileName, 0, 0);
             this.tableLayoutDetailTab.Controls.Add(this.labelFileNameValue, 1, 0);
             this.tableLayoutDetailTab.Controls.Add(this.labelFirst, 0, 3);
@@ -342,7 +342,7 @@
             // labelFileNameValue
             // 
             this.labelFileNameValue.AutoSize = true;
-            this.labelFileNameValue.Location = new System.Drawing.Point(177, 0);
+            this.labelFileNameValue.Location = new System.Drawing.Point(224, 0);
             this.labelFileNameValue.Name = "labelFileNameValue";
             this.labelFileNameValue.Size = new System.Drawing.Size(0, 32);
             this.labelFileNameValue.TabIndex = 1;
@@ -359,7 +359,7 @@
             // labelFirstValue
             // 
             this.labelFirstValue.AutoSize = true;
-            this.labelFirstValue.Location = new System.Drawing.Point(177, 64);
+            this.labelFirstValue.Location = new System.Drawing.Point(224, 64);
             this.labelFirstValue.Name = "labelFirstValue";
             this.labelFirstValue.Size = new System.Drawing.Size(0, 32);
             this.labelFirstValue.TabIndex = 3;
@@ -376,7 +376,7 @@
             // labelLastValue
             // 
             this.labelLastValue.AutoSize = true;
-            this.labelLastValue.Location = new System.Drawing.Point(177, 96);
+            this.labelLastValue.Location = new System.Drawing.Point(224, 96);
             this.labelLastValue.Name = "labelLastValue";
             this.labelLastValue.Size = new System.Drawing.Size(0, 32);
             this.labelLastValue.TabIndex = 5;
@@ -393,7 +393,7 @@
             // labelDataCountValue
             // 
             this.labelDataCountValue.AutoSize = true;
-            this.labelDataCountValue.Location = new System.Drawing.Point(177, 128);
+            this.labelDataCountValue.Location = new System.Drawing.Point(224, 128);
             this.labelDataCountValue.Name = "labelDataCountValue";
             this.labelDataCountValue.Size = new System.Drawing.Size(0, 32);
             this.labelDataCountValue.TabIndex = 7;
@@ -401,7 +401,7 @@
             // labelActivitiesValue
             // 
             this.labelActivitiesValue.AutoSize = true;
-            this.labelActivitiesValue.Location = new System.Drawing.Point(177, 160);
+            this.labelActivitiesValue.Location = new System.Drawing.Point(224, 160);
             this.labelActivitiesValue.Name = "labelActivitiesValue";
             this.labelActivitiesValue.Size = new System.Drawing.Size(0, 32);
             this.labelActivitiesValue.TabIndex = 8;
@@ -427,7 +427,7 @@
             // labelStepCountValue
             // 
             this.labelStepCountValue.AutoSize = true;
-            this.labelStepCountValue.Location = new System.Drawing.Point(177, 192);
+            this.labelStepCountValue.Location = new System.Drawing.Point(224, 192);
             this.labelStepCountValue.Name = "labelStepCountValue";
             this.labelStepCountValue.Size = new System.Drawing.Size(0, 32);
             this.labelStepCountValue.TabIndex = 11;
@@ -437,14 +437,14 @@
             this.labelLineCount.AutoSize = true;
             this.labelLineCount.Location = new System.Drawing.Point(3, 32);
             this.labelLineCount.Name = "labelLineCount";
-            this.labelLineCount.Size = new System.Drawing.Size(130, 32);
+            this.labelLineCount.Size = new System.Drawing.Size(206, 32);
             this.labelLineCount.TabIndex = 12;
-            this.labelLineCount.Text = "Line Count";
+            this.labelLineCount.Text = "Parsed Line Count";
             // 
             // labelLineCountValue
             // 
             this.labelLineCountValue.AutoSize = true;
-            this.labelLineCountValue.Location = new System.Drawing.Point(177, 32);
+            this.labelLineCountValue.Location = new System.Drawing.Point(224, 32);
             this.labelLineCountValue.Name = "labelLineCountValue";
             this.labelLineCountValue.Size = new System.Drawing.Size(0, 32);
             this.labelLineCountValue.TabIndex = 13;
