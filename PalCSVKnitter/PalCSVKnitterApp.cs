@@ -298,6 +298,10 @@ namespace PalCSVKnitter
 
             try
             {
+                // 0) Check for < 2 files in the queue.
+                if (lbConfiguration.Items.Count < 2)
+                    throw new ArgumentOutOfRangeException("Need at least 2 files to knit!");
+
                 // 1) Create output folder.
                 if (!Directory.Exists(path + outputFolder))
                     Directory.CreateDirectory(path + outputFolder);
